@@ -23,6 +23,10 @@
 *.lib
 
 # Executables
+/raytrace
 *.exe
 *.out
 *.app
+
+# Backup files
+*~
