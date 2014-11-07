@@ -2,6 +2,7 @@ vpath %.c        src
 vpath %.cpp      src
 vpath test_%.cpp test
 vpath %.h        include
+vpath %.hpp        include
 
 CC = gcc
 CPP = g++
@@ -32,6 +33,4 @@ raytrace: Main.o
 	${CPP} -o $@ $^ ${LFLAGS} 
 
 Main.o: Main.cpp
-
-.o: %.cpp
 	${CPP} -c -o $@ $< ${CFLAGS} ${INCLUDES}
