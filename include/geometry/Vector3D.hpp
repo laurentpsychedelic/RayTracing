@@ -69,7 +69,7 @@ const T Vector3D<T>::length() const {
 
 template <typename T>
 std::ostream& operator<<(std::ostream& out, const Vector3D<T>& instance) {
-    return out << "Vector3D: (" << instance.x << "," << instance.y << "," << instance.z << ") @{" << &instance << "}";
+    return out << "(" << instance.x << "," << instance.y << "," << instance.z << ")";
 }
 
 
