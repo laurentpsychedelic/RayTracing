@@ -2,6 +2,7 @@
 #define VECTOR3D_HPP
 
 #include <iostream>
+#include <math.h>
 
 template <typename T>
 class Vector3D {
@@ -23,6 +24,9 @@ public:
     const Vector3D<U> operator+=(Vector3D<U>& vector) const;
     template <typename U>
     const Vector3D<U> operator-=(Vector3D<U>& vector) const;
+    /* Member functions */
+    const Vector3D<T> normalize() const;
+    const T length() const;
 
     template <typename U>
     friend std::ostream& operator<<(std::ostream& out, const Vector3D<U>& instance);
@@ -59,8 +63,23 @@ const Vector3D<U> Vector3D<T>::operator-=(Vector3D<U>& vector) const {
 }
 
 template <typename T>
+const Vector3D<T> Vector3D<T>::normalize() const {
+    const T l = length();
+    return Vector3D<T>(this->x / l, this->y / l, this->z / l);
+}
+
+template <typename T>
+const T Vector3D<T>::length() const {
+    const T x = this->x;
+    const T y = this->y;
+    const T z = this->z;
+    return sqrt( x * x + y * y + z * z );
+}
+
+template <typename T>
 std::ostream& operator<<(std::ostream& out, const Vector3D<T>& instance) {
     return out << "Vector3D: (" << instance.x << "," << instance.y << "," << instance.z << ") @{" << &instance << "}";
 }
+
 
 #endif
