@@ -26,9 +26,10 @@ int main(int argc, char *argv[]) {
         cout << "u1 | u2 = " << ( u1 | u2 ) << endl; // Scalar product
         const Vector u3 = u1 * u2;
         cout << "u3 = " << u3 << endl;
+        cout << "2.0 * u1 + u2 * 1.5 - u3 * 4.0 = " << (2.0 * u1 + u2 / 2.0 - u3 * 4.0) << endl;
         const Basis b1(u1, u2, u3);
         cout << "{b1} = " << b1 << endl;
-        const Basis b2(u1, u1, u3);
+        const Basis b2(u1, u1 * 2, u1 / 2.3);
         cout << "{b2} = " << b2 << endl;
     } catch (const char* error) {
         cout << "ERROR! >> " << error << endl;

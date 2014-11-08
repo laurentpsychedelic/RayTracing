@@ -20,6 +20,7 @@ public:
     const Vector3D<T> operator+=(const Vector3D<T>& vector) const;
     const Vector3D<T> operator-=(const Vector3D<T>& vector) const;
     const Vector3D<T> operator*(const Vector3D<T>& vector) const;
+    const Vector3D<T> operator*(T factor) const;
     const Vector3D<T> operator*=(const Vector3D<T>& vector) const; // Vectorial product
     const T operator|(const Vector3D<T>& vector) const; // Scalar product
     const Vector3D<T> operator!() const; // Normalization operator
@@ -30,7 +31,21 @@ public:
     /* Friend functions */
     template <typename U>
     friend std::ostream& operator<<(std::ostream& out, const Vector3D<U>& instance);
+    template <typename U>
+    friend const Vector3D<U> operator*(U factor, const Vector3D<U>& vector);
+    template <typename U>
+    friend const Vector3D<U> operator/(const Vector3D<T>& vector, T divisor);
 };
+
+template <typename T>
+const Vector3D<T> operator*(T factor, const Vector3D<T>& vector) {
+    return Vector3D<T>(factor * vector.x, factor * vector.y, factor * vector.z);
+}
+
+template <typename T>
+const Vector3D<T> operator/(const Vector3D<T>& vector, T divisor) {
+    return Vector3D<T>(vector.x / divisor, vector.y / divisor, vector.z / divisor);
+}
 
 template <typename T>
 const Vector3D<T> Vector3D<T>::operator+(const Vector3D<T>& vector) const {
@@ -40,6 +55,11 @@ const Vector3D<T> Vector3D<T>::operator+(const Vector3D<T>& vector) const {
 template <typename T>
 const Vector3D<T> Vector3D<T>::operator-(const Vector3D<T>& vector) const {
     return Vector3D<T>(*this) -= vector;
+}
+
+template <typename T>
+const Vector3D<T> Vector3D<T>::operator*(T factor) const {
+    return Vector3D<T>(factor * this->x, factor * this->y, factor * this->z);
 }
 
 template <typename T>
