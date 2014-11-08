@@ -15,10 +15,10 @@ public:
     Vector3D(T x, T y, T z) : x(x), y(y), z(z) {}
     Vector3D(const Vector3D<T>& vector) : x(vector.x), y(vector.y), z(vector.z) {}
     /* Operators */
-    const Vector3D<T> operator+(Vector3D<T>& vector) const;
-    const Vector3D<T> operator-(Vector3D<T>& vector) const;
-    const Vector3D<T> operator+=(Vector3D<T>& vector) const;
-    const Vector3D<T> operator-=(Vector3D<T>& vector) const;
+    const Vector3D<T> operator+(const Vector3D<T>& vector) const;
+    const Vector3D<T> operator-(const Vector3D<T>& vector) const;
+    const Vector3D<T> operator+=(const Vector3D<T>& vector) const;
+    const Vector3D<T> operator-=(const Vector3D<T>& vector) const;
     /* Member functions */
     const Vector3D<T> normalize() const;
     const T length() const;
@@ -28,17 +28,17 @@ public:
 };
 
 template <typename T>
-const Vector3D<T> Vector3D<T>::operator+(Vector3D<T>& vector) const {
+const Vector3D<T> Vector3D<T>::operator+(const Vector3D<T>& vector) const {
     return Vector3D<T>(*this) += vector;
 }
 
 template <typename T>
-const Vector3D<T> Vector3D<T>::operator-(Vector3D<T>& vector) const {
+const Vector3D<T> Vector3D<T>::operator-(const Vector3D<T>& vector) const {
     return Vector3D<T>(*this) -= vector;
 }
 
 template <typename T>
-const Vector3D<T> Vector3D<T>::operator+=(Vector3D<T>& vector) const {
+const Vector3D<T> Vector3D<T>::operator+=(const Vector3D<T>& vector) const {
     const T x = this->x + vector.x;
     const T y = this->y + vector.y;
     const T z = this->z + vector.z;
@@ -46,7 +46,7 @@ const Vector3D<T> Vector3D<T>::operator+=(Vector3D<T>& vector) const {
 }
 
 template <typename T>
-const Vector3D<T> Vector3D<T>::operator-=(Vector3D<T>& vector) const {
+const Vector3D<T> Vector3D<T>::operator-=(const Vector3D<T>& vector) const {
     const T x = this->x - vector.x;
     const T y = this->y - vector.y;
     const T z = this->z - vector.z;
