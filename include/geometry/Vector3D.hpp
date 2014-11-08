@@ -27,7 +27,7 @@ public:
     /* Member functions */
     const Vector3D<T> normalize() const;
     const T length() const;
-
+    /* Friend functions */
     template <typename U>
     friend std::ostream& operator<<(std::ostream& out, const Vector3D<U>& instance);
 };
