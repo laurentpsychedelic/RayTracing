@@ -9,6 +9,7 @@ using namespace std;
 int main(int argc, char *argv[]) {
     Vector vector1(1.234, 2.345, 3.456);
     Vector vector2(1,2,3);
-    cout << (vector1 + vector2) << endl;
+    cout << "v1 + v2 = " << (vector1 + vector2) << endl;
+    cout << "v1 - v2 = " << (vector1 - vector2) << endl;
     return 0;
 }
