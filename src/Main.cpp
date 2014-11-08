@@ -12,10 +12,10 @@ int main(int argc, char *argv[]) {
     cout << "v1 = " << v1 << " , v2 = " << v2 << endl;
     cout << "v1 + v2 = " << (v1 + v2) << endl;
     cout << "v1 - v2 = " << (v1 - v2) << endl;
-    cout << "v1 = " << v1 << ", ||v1|| = " << v1.length() << endl;
-    cout << "v1/||v1|| = " << v1.normalize() << ", ||v1/||v1|||| = " << v1.normalize().length() << endl;
-    cout << "v2 = " << v2 << ", ||v2|| = " << v2.length() << endl;
-    cout << "v2/||v2|| = " << v2.normalize() << ", ||v2/||v2|||| = " << v2.normalize().length() << endl;
+    cout << "v1 = " << v1 << ", ||v1|| = " << ~v1 << endl;
+    cout << "v1/||v1|| = " << !v1 << ", ||v1/||v1|||| = " << ~!v1 << endl;
+    cout << "v2 = " << v2 << ", ||v2|| = " << ~v2 << endl;
+    cout << "v2/||v2|| = " << !v2 << ", ||v2/||v2|||| = " << ~!v2 << endl;
     const Vector u1(1, 0, 0);
     const Vector u2(0, 1, 0);
     cout << "u1 = " << u1 << " , u2 = " << u2 << endl;

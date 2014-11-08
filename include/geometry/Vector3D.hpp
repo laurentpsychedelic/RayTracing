@@ -22,6 +22,8 @@ public:
     const Vector3D<T> operator*(const Vector3D<T>& vector) const;
     const Vector3D<T> operator*=(const Vector3D<T>& vector) const; // Vectorial product
     const T operator|(const Vector3D<T>& vector) const; // Scalar product
+    const Vector3D<T> operator!() const; // Normalization operator
+    const T operator~() const; // Length operator
     /* Member functions */
     const Vector3D<T> normalize() const;
     const T length() const;
@@ -72,6 +74,16 @@ const Vector3D<T> Vector3D<T>::operator*=(const Vector3D<T>& vector) const { // 
 template <typename T>
 const T Vector3D<T>::operator|(const Vector3D<T>& vector) const { // Scalar product
     return ( this->x * vector.x + this->y * vector.y + this->z * vector.z );
+}
+
+template <typename T>
+const Vector3D<T> Vector3D<T>::operator!() const { // Normalization operator
+    return this->normalize();
+}
+
+template <typename T>
+const T Vector3D<T>::operator~() const { // Length operator
+    return this->length();
 }
 
 template <typename T>
