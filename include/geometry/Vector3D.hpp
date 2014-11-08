@@ -5,6 +5,9 @@
 #include <math.h>
 
 template <typename T>
+void check(T x, T y, T z);
+
+template <typename T>
 class Vector3D {
 public:
     /* Members */
@@ -12,8 +15,12 @@ public:
     const T y;
     const T z;
     /* Constructors */
-    Vector3D(T x, T y, T z) : x(x), y(y), z(z) {}
-    Vector3D(const Vector3D<T>& vector) : x(vector.x), y(vector.y), z(vector.z) {}
+    Vector3D(T x, T y, T z) : x(x), y(y), z(z) {
+        check(x, y, z);
+    }
+    Vector3D(const Vector3D<T>& vector) : x(vector.x), y(vector.y), z(vector.z) {
+        check(x, y, z);
+    }
     /* Operators */
     const Vector3D<T> operator+(const Vector3D<T>& vector) const;
     const Vector3D<T> operator-(const Vector3D<T>& vector) const;
@@ -36,6 +43,13 @@ public:
     template <typename U>
     friend const Vector3D<U> operator/(const Vector3D<T>& vector, T divisor);
 };
+
+template <typename T>
+void check(T x, T y, T z) {
+    if ( (x != x) || (y != y) || (z != z)
+      || !isfinite(x) || !isfinite(y) || !isfinite(z) )
+        throw "Invalid vector!";
+}
 
 template <typename T>
 const Vector3D<T> operator*(T factor, const Vector3D<T>& vector) {
