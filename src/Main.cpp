@@ -53,6 +53,9 @@ int main(int argc, char *argv[]) {
         cout << "{b2} = " << b2 << endl;
         const TransformationMatrix t(b1, b2);
         cout << "[T] = " << t << endl;
+        const Vector v(1, 1, 1);
+        cout << "v = " << v << endl;
+        cout << "[T] * v = " << (t * v) << endl;
     } catch (const char* error) {
         cout << "ERROR! >> " << error << endl;
         return -1;

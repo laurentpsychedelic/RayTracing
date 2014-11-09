@@ -15,8 +15,8 @@ public:
 
 /**
  * Given the coordinates of two bases (in an arbitrary coordinate system),
- * this function compute the matrix that is to be applied to the coordinates of a point
- * in the second basis to get the coordinates of the same point in the first basis
+ * this function compute the matrix that is to be applied to the coordinates of a point/vector
+ * in the second basis to get the coordinates of the same point/vector in the first basis
  */
 template <typename T>
 Matrix3D<T> buildTransformationMatrixFromBases(const Basis3D<T>& basis1, const Basis3D<T>& basis2) {

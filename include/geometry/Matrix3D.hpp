@@ -31,6 +31,7 @@ public:
     /* Operators */
     const Matrix3D<T> operator+(const Matrix3D<T>& matrix) const;
     const Matrix3D<T> operator*(T factor) const;
+    const Vector3D<T> operator*(const Vector3D<T>& vector) const;
     const Matrix3D<T> operator*(const Matrix3D<T>& matrix) const;
     const Matrix3D<T> operator*=(const Matrix3D<T>& matrix) const;
     const Matrix3D<T> operator/(T divisor) const;
@@ -74,6 +75,14 @@ const Matrix3D<T> Matrix3D<T>::operator*(T factor) const {
     return Matrix3D<T>(factor * this->M11, factor * this->M12, factor * this->M13,
                        factor * this->M21, factor * this->M22, factor * this->M23,
                        factor * this->M31, factor * this->M32, factor * this->M33);
+}
+
+template <typename T>
+const Vector3D<T> Matrix3D<T>::operator*(const Vector3D<T>& vector) const {
+    const Vector3D<T> row1(this->M11, this->M12, this->M13);
+    const Vector3D<T> row2(this->M21, this->M22, this->M23);
+    const Vector3D<T> row3(this->M31, this->M32, this->M33);
+    return Vector3D<T>(row1 | vector, row2 | vector, row3 | vector);
 }
 
 template <typename T>
