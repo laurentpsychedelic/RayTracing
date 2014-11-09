@@ -7,9 +7,6 @@
 using namespace std;
 
 template <typename T>
-void check(T M11, T M12, T M13, T M21, T M22, T M23, T M31, T M32, T M33);
-
-template <typename T>
 class Matrix3D {
 public:
     /* Members */
@@ -32,10 +29,12 @@ public:
     /* Friend functions */
     template <typename U>
     friend std::ostream& operator<<(std::ostream& out, const Matrix3D<U>& instance);
+private:
+    void check(T M11, T M12, T M13, T M21, T M22, T M23, T M31, T M32, T M33);
 };
 
 template <typename T>
-void check(T M11, T M12, T M13, T M21, T M22, T M23, T M31, T M32, T M33) {
+void Matrix3D<T>::check(T M11, T M12, T M13, T M21, T M22, T M23, T M31, T M32, T M33) {
     if ( ( M11 != M11 || !isfinite(M11) )
       || ( M12 != M12 || !isfinite(M12) )
       || ( M13 != M13 || !isfinite(M13) )

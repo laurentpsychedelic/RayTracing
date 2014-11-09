@@ -2,10 +2,8 @@
 #define VECTOR3D_HPP
 
 #include <iostream>
+#include <iomanip>
 #include <math.h>
-
-template <typename T>
-void check(T x, T y, T z);
 
 template <typename T>
 class Vector3D {
@@ -42,10 +40,12 @@ public:
     friend const Vector3D<U> operator*(U factor, const Vector3D<U>& vector);
     template <typename U>
     friend const Vector3D<U> operator/(const Vector3D<T>& vector, T divisor);
+private:
+    void check(T x, T y, T z);
 };
 
 template <typename T>
-void check(T x, T y, T z) {
+void Vector3D<T>::check(T x, T y, T z) {
     if ( (x != x) || (y != y) || (z != z)
       || !isfinite(x) || !isfinite(y) || !isfinite(z) )
         throw "Invalid vector!";
@@ -138,6 +138,5 @@ template <typename T>
 std::ostream& operator<<(std::ostream& out, const Vector3D<T>& instance) {
     return out << "(" << instance.x << "," << instance.y << "," << instance.z << ")";
 }
-
 
 #endif
