@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include "geometry/PrintFormat.hpp"
 
 using namespace std;
 
@@ -49,9 +50,9 @@ void Matrix3D<T>::check(T M11, T M12, T M13, T M21, T M22, T M23, T M31, T M32, 
 
 template <typename T>
 std::ostream& operator<<(std::ostream& out, const Matrix3D<T>& instance) {
-    return out << "\n    [" << setw(4) << instance.M11 << "    " << setw(4) << instance.M12 << "    " << setw(4) << instance.M13 << "   ]" <<
-                  "\n    [" << setw(4) << instance.M21 << "    " << setw(4) << instance.M22 << "    " << setw(4) << instance.M23 << "   ]" <<
-                  "\n    [" << setw(4) << instance.M31 << "    " << setw(4) << instance.M32 << "    " << setw(4) << instance.M33 << "   ]";
+    return out << "\n    [" << setw(PrintFormat::width) << instance.M11 << "    " << setw(PrintFormat::width) << instance.M12 << "    " << setw(PrintFormat::width) << instance.M13 << "]" <<
+                  "\n    [" << setw(PrintFormat::width) << instance.M21 << "    " << setw(PrintFormat::width) << instance.M22 << "    " << setw(PrintFormat::width) << instance.M23 << "]" <<
+                  "\n    [" << setw(PrintFormat::width) << instance.M31 << "    " << setw(PrintFormat::width) << instance.M32 << "    " << setw(PrintFormat::width) << instance.M33 << "]";
 }
 
 #endif

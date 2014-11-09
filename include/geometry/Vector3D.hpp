@@ -4,6 +4,9 @@
 #include <iostream>
 #include <iomanip>
 #include <math.h>
+#include "geometry/PrintFormat.hpp"
+
+using namespace std;
 
 template <typename T>
 class Vector3D {
@@ -136,7 +139,7 @@ const T Vector3D<T>::length() const {
 
 template <typename T>
 std::ostream& operator<<(std::ostream& out, const Vector3D<T>& instance) {
-    return out << "(" << instance.x << "," << instance.y << "," << instance.z << ")";
+    return out << "(" << setw(PrintFormat::width) << instance.x << "," << setw(PrintFormat::width) << instance.y << "," << setw(PrintFormat::width) << instance.z << ")";
 }
 
 #endif

@@ -1,7 +1,11 @@
 #ifndef BASIS3D_HPP
 #define BASIS3D_HPP
 
+#include <iostream>
+#include <iomanip>
 #include "geometry/Vector3D.hpp"
+
+using namespace std;
 
 template <typename T>
 class Basis3D {
