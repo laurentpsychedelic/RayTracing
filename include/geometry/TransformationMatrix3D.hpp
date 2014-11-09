@@ -9,8 +9,8 @@ class TransformationMatrix3D : public Matrix3D<T> {
 public:
     TransformationMatrix3D<T>(const Basis3D<T>& basis1, const Basis3D<T>& basis2) : Matrix3D<T>(buildTransformationMatrixFromBases(basis1, basis2)) { }
     TransformationMatrix3D<T>(T M11, T M12, T M13, T M21, T M22, T M23, T M31, T M32, T M33) : Matrix3D<T>(M11, M12, M13, M21, M22, M23, M31, M32, M33) { }
-    template <typename U>
-    friend Matrix3D<U> buildTransformationMatrixFromBases(const Basis3D<U>& basis1, const Basis3D<U>& basis2);
+private:
+    static Matrix3D<T> buildTransformationMatrixFromBases(const Basis3D<T>& basis1, const Basis3D<T>& basis2);
 };
 
 /**
@@ -19,7 +19,7 @@ public:
  * in the second basis to get the coordinates of the same point/vector in the first basis
  */
 template <typename T>
-Matrix3D<T> buildTransformationMatrixFromBases(const Basis3D<T>& basis1, const Basis3D<T>& basis2) {
+ Matrix3D<T> TransformationMatrix3D<T>::buildTransformationMatrixFromBases(const Basis3D<T>& basis1, const Basis3D<T>& basis2) {
     const Vector3D<T> xs1(basis1.u1.x, basis1.u2.x, basis1.u3.x);
     const Vector3D<T> ys1(basis1.u1.y, basis1.u2.y, basis1.u3.y);
     const Vector3D<T> zs1(basis1.u1.z, basis1.u2.z, basis1.u3.z);
