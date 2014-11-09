@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include "geometry/Vector3D.hpp"
 #include "geometry/PrintFormat.hpp"
 
 using namespace std;
@@ -28,7 +29,9 @@ public:
         check(M11, M12, M13, M21, M22, M23, M31, M32, M33);
     }
     /* Operators */
+    const Matrix3D<T> operator+(const Matrix3D<T>& matrix) const;
     const Matrix3D<T> operator*(T factor) const;
+    const Matrix3D<T> operator*(const Matrix3D<T>& matrix) const;
     const Matrix3D<T> operator/(T divisor) const;
     /* Friend functions */
     template <typename U>
@@ -52,12 +55,31 @@ void Matrix3D<T>::check(T M11, T M12, T M13, T M21, T M22, T M23, T M31, T M32, 
       || ( M33 != M33 || !isfinite(M33) ) )
         throw "Invalid matrix!";
 }
+template <typename T>
+const Matrix3D<T> Matrix3D<T>::operator+(const Matrix3D<T>& matrix) const {
+    return Matrix3D<T>(this->M11 + matrix.M11, this->M12 + matrix.M12, this->M13 + matrix.M13,
+                       this->M21 + matrix.M21, this->M22 + matrix.M22, this->M23 + matrix.M23,
+                       this->M31 + matrix.M31, this->M32 + matrix.M32, this->M33 + matrix.M33);
+}
 
 template <typename T>
 const Matrix3D<T> Matrix3D<T>::operator*(T factor) const {
     return Matrix3D<T>(factor * this->M11, factor * this->M12, factor * this->M13,
                        factor * this->M21, factor * this->M22, factor * this->M23,
                        factor * this->M31, factor * this->M32, factor * this->M33);
+}
+
+template <typename T>
+const Matrix3D<T> Matrix3D<T>::operator*(const Matrix3D<T>& matrix) const {
+    const Vector3D<T> row1(this->M11, this->M12, this->M13);
+    const Vector3D<T> row2(this->M21, this->M22, this->M23);
+    const Vector3D<T> row3(this->M31, this->M32, this->M33);
+    const Vector3D<T> col1(matrix.M11, matrix.M21, matrix.M31);
+    const Vector3D<T> col2(matrix.M12, matrix.M22, matrix.M32);
+    const Vector3D<T> col3(matrix.M13, matrix.M23, matrix.M33);
+    return Matrix3D<T>(row1 | col1, row1 | col2, row1 | col3,
+                       row2 | col1, row2 | col2, row2 | col3,
+                       row3 | col1, row3 | col2, row3 | col3);
 }
 
 template <typename T>

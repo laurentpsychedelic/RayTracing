@@ -32,7 +32,15 @@ int main(int argc, char *argv[]) {
         const Basis b1(u1, u2, u3);
         cout << "{b1} = " << b1 << endl;
         const Matrix m(1, 0, 0, 0, 1, 0, 0, 0, 1);
-cout << "2 * [M] / 3 = " << (2.0 * m / 3.0) << endl; 
+        cout << "2 * [M] / 3 = " << (2.0 * m / 3.0) << endl;
+        const Matrix m1(1, 2, 3, 4, 5, 6, 7, 8, 9);
+        cout << "[M1] = " << m1 << endl;
+        const Matrix m2(8, 1, 7, 2, 6, 3, 5, 4, 0);
+        cout << "[M2] = " << m2 << endl;
+        cout << "[M1 + M2] = " << (m1 + m2) << endl;
+        cout << "[M1 * M2] = " << (m1 * m2) << endl;
+        cout << "[M2 * M1] = " << (m2 * m1) << endl;
+        cout << "[M * M1] = " << (m * m1) << endl;
     } catch (const char* error) {
         cout << "ERROR! >> " << error << endl;
         return -1;
