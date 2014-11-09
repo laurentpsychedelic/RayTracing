@@ -2,12 +2,14 @@
 
 #include "geometry/Basis3D.hpp"
 #include "geometry/Matrix3D.hpp"
+#include "geometry/TransformationMatrix3D.hpp"
 #include "geometry/Vector3D.hpp"
 
 using namespace std;
 
 #define Basis Basis3D<double>
 #define Matrix Matrix3D<double>
+#define TransformationMatrix TransformationMatrix3D<double>
 #define Vector Vector3D<double>
 
 int main(int argc, char *argv[]) {
@@ -29,8 +31,6 @@ int main(int argc, char *argv[]) {
         const Vector u3 = u1 * u2;
         cout << "u3 = " << u3 << endl;
         cout << "2.0 * u1 + u2 * 1.5 - u3 * 4.0 = " << (2.0 * u1 + u2 / 2.0 - u3 * 4.0) << endl;
-        const Basis b1(u1, u2, u3);
-        cout << "{b1} = " << b1 << endl;
         const Matrix m(1, 0, 0, 0, 1, 0, 0, 0, 1);
         cout << "2 * [M] / 3 = " << (2.0 * m / 3.0) << endl;
         const Matrix m1(1, 2, 3, 4, 5, 6, 7, 8, 9);
@@ -47,6 +47,12 @@ int main(int argc, char *argv[]) {
         const Matrix im3(-2, 8, -5, 3, -11, 7, 9, -34, 21);
         cout << "[IM3] = " << im3 << endl;
         cout << "[M3^-1]==[IM3] ? -> " << ((m3^-1) == im3 ? "yes" : "no") << endl;
+        const Basis b1(u1, u2, u3);
+        cout << "{b1} = " << b1 << endl;
+        const Basis b2(2.0 * u2, 0.5 * u3, u1 / 10.0);
+        cout << "{b2} = " << b2 << endl;
+        const TransformationMatrix t(b1, b2);
+        cout << "[T] = " << t << endl;
     } catch (const char* error) {
         cout << "ERROR! >> " << error << endl;
         return -1;
