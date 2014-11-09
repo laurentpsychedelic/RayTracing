@@ -4,11 +4,13 @@
 #include "geometry/Matrix3D.hpp"
 #include "geometry/TransformationMatrix3D.hpp"
 #include "geometry/Vector3D.hpp"
+#include "optics/Refractor.hpp"
 
 using namespace std;
 
 #define Basis Basis3D<double>
 #define Matrix Matrix3D<double>
+#define Refractor Refractor<double>
 #define TransformationMatrix TransformationMatrix3D<double>
 #define Vector Vector3D<double>
 
@@ -56,6 +58,14 @@ int main(int argc, char *argv[]) {
         const Vector v(1, 1, 1);
         cout << "v = " << v << endl;
         cout << "[T] * v = " << (t * v) << endl;
+
+        const Vector normal = !Vector(0, 0, 1);
+        const Vector incident = !Vector(sqrt(2), 0, -sqrt(2));
+        const double n1 = 1.0; // Air
+        const double n2 = 1.333; // Water
+        const Vector refracted = Refractor::refract(incident, normal, n1, n2);
+        cout << "inc = " << incident << endl;
+        cout << "ref = " << refracted << endl;
     } catch (const char* error) {
         cout << "ERROR! >> " << error << endl;
         return -1;
