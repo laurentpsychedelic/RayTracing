@@ -32,7 +32,12 @@ public:
     const Matrix3D<T> operator+(const Matrix3D<T>& matrix) const;
     const Matrix3D<T> operator*(T factor) const;
     const Matrix3D<T> operator*(const Matrix3D<T>& matrix) const;
+    const Matrix3D<T> operator*=(const Matrix3D<T>& matrix) const;
     const Matrix3D<T> operator/(T divisor) const;
+    const Matrix3D<T> operator^(const int divisor) const;
+    const bool operator==(const Matrix3D<T>& matrix) const;
+    /* Member functions */
+    const Matrix3D<T> inverse() const;
     /* Friend functions */
     template <typename U>
     friend std::ostream& operator<<(std::ostream& out, const Matrix3D<U>& instance);
@@ -83,6 +88,11 @@ const Matrix3D<T> Matrix3D<T>::operator*(const Matrix3D<T>& matrix) const {
 }
 
 template <typename T>
+const Matrix3D<T> Matrix3D<T>::operator*=(const Matrix3D<T>& matrix) const {
+    return (*this * matrix);
+}
+
+template <typename T>
 const Matrix3D<T> operator*(T factor, const Matrix3D<T>& matrix) {
     return (matrix * factor);
 }
@@ -92,6 +102,46 @@ const Matrix3D<T> Matrix3D<T>::operator/(T divisor) const {
     return Matrix3D<T>(this->M11 / divisor, this->M12 / divisor, this->M13 / divisor,
                        this->M21 / divisor, this->M22 / divisor, this->M23 / divisor,
                        this->M31 / divisor, this->M32 / divisor, this->M33 / divisor);
+}
+
+template <typename T>
+const Matrix3D<T> Matrix3D<T>::operator^(const int exponent) const {
+    if (exponent == -1) // Matrix inverse
+        return this->inverse();
+    else if (exponent < 0) // Undefined
+        throw "Bad exponent!";
+    else { // Positive exponent
+        Matrix3D<T> matrix = *this;
+        for (int i = 1; i < exponent; ++i) {
+            matrix *= matrix;
+        }
+        return matrix;
+    }
+}
+
+template <typename T>
+const Matrix3D<T> Matrix3D<T>::inverse() const {
+    const Vector3D<T> col1(this->M11, this->M21, this->M31);
+    const Vector3D<T> col2(this->M12, this->M22, this->M32);
+    const Vector3D<T> col3(this->M13, this->M23, this->M33);
+    const Vector3D<T> row1 = col2 * col3;
+    const Vector3D<T> row2 = col3 * col1;
+    const Vector3D<T> row3 = col1 * col2;
+    const T det = col1 | ( col2 * col3 ); // Determinant = triple product
+    return Matrix3D<T>(row1.x, row1.y, row1.z,
+                       row2.x, row2.y, row2.z,
+                       row3.x, row3.y, row3.z) / det;
+}
+
+template <typename T>
+const bool Matrix3D<T>::operator==(const Matrix3D<T>& matrix) const {
+    const Vector3D<T> this_row1(this->M11, this->M12, this->M13);
+    const Vector3D<T> this_row2(this->M21, this->M22, this->M23);
+    const Vector3D<T> this_row3(this->M31, this->M32, this->M33);
+    const Vector3D<T> row1(matrix.M11, matrix.M12, matrix.M13);
+    const Vector3D<T> row2(matrix.M21, matrix.M22, matrix.M23);
+    const Vector3D<T> row3(matrix.M31, matrix.M32, matrix.M33);
+    return ( (this_row1 == row1) && (this_row2 == row2) && (this_row3 == row3) );
 }
 
 template <typename T>

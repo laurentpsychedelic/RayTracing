@@ -33,6 +33,7 @@ public:
     const T operator|(const Vector3D<T>& vector) const; // Scalar product
     const Vector3D<T> operator!() const; // Normalization operator
     const T operator~() const; // Length operator
+    const bool operator==(const Vector3D<T>& vector) const;
     /* Member functions */
     const Vector3D<T> normalize() const;
     const T length() const;
@@ -119,6 +120,11 @@ const Vector3D<T> Vector3D<T>::operator!() const { // Normalization operator
 template <typename T>
 const T Vector3D<T>::operator~() const { // Length operator
     return this->length();
+}
+
+template <typename T>
+const bool Vector3D<T>::operator==(const Vector3D<T>& vector) const {
+    return ( (this->x == vector.x) && (this->y == vector.y) && (this->z == vector.z) );
 }
 
 template <typename T>

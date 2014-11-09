@@ -41,6 +41,12 @@ int main(int argc, char *argv[]) {
         cout << "[M1 * M2] = " << (m1 * m2) << endl;
         cout << "[M2 * M1] = " << (m2 * m1) << endl;
         cout << "[M * M1] = " << (m * m1) << endl;
+        const Matrix m3(7, 2, 1, 0, 3, -1, -3, 4, -2);
+        cout << "[M3] = " << m3 << endl;
+        cout << "[M3^-1] = " << (m3^-1) << endl;
+        const Matrix im3(-2, 8, -5, 3, -11, 7, 9, -34, 21);
+        cout << "[IM3] = " << im3 << endl;
+        cout << "[M3^-1]==[IM3] ? -> " << ((m3^-1) == im3 ? "yes" : "no") << endl;
     } catch (const char* error) {
         cout << "ERROR! >> " << error << endl;
         return -1;
