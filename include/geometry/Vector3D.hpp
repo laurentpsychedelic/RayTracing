@@ -41,8 +41,6 @@ public:
     friend std::ostream& operator<<(std::ostream& out, const Vector3D<U>& instance);
     template <typename U>
     friend const Vector3D<U> operator*(U factor, const Vector3D<U>& vector);
-    template <typename U>
-    friend const Vector3D<U> operator/(const Vector3D<T>& vector, T divisor);
 private:
     void check(T x, T y, T z);
 };
@@ -56,7 +54,7 @@ void Vector3D<T>::check(T x, T y, T z) {
 
 template <typename T>
 const Vector3D<T> operator*(T factor, const Vector3D<T>& vector) {
-    return Vector3D<T>(factor * vector.x, factor * vector.y, factor * vector.z);
+return (vector * factor);
 }
 
 template <typename T>
