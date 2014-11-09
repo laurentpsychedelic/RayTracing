@@ -27,9 +27,14 @@ public:
     Matrix3D(const Matrix3D<T>& matrix) : M11(matrix.M11), M12(matrix.M12), M13(matrix.M13), M21(matrix.M21), M22(matrix.M22), M23(matrix.M23), M31(matrix.M31), M32(matrix.M32), M33(matrix.M33) {
         check(M11, M12, M13, M21, M22, M23, M31, M32, M33);
     }
+    /* Operators */
+    const Matrix3D<T> operator*(T factor) const;
+    const Matrix3D<T> operator/(T divisor) const;
     /* Friend functions */
     template <typename U>
     friend std::ostream& operator<<(std::ostream& out, const Matrix3D<U>& instance);
+    template <typename U>
+    friend const Matrix3D<U> operator*(U factor, const Matrix3D<U>& vector);
 private:
     void check(T M11, T M12, T M13, T M21, T M22, T M23, T M31, T M32, T M33);
 };
@@ -46,6 +51,25 @@ void Matrix3D<T>::check(T M11, T M12, T M13, T M21, T M22, T M23, T M31, T M32, 
       || ( M32 != M32 || !isfinite(M32) )
       || ( M33 != M33 || !isfinite(M33) ) )
         throw "Invalid matrix!";
+}
+
+template <typename T>
+const Matrix3D<T> Matrix3D<T>::operator*(T factor) const {
+    return Matrix3D<T>(factor * this->M11, factor * this->M12, factor * this->M13,
+                       factor * this->M21, factor * this->M22, factor * this->M23,
+                       factor * this->M31, factor * this->M32, factor * this->M33);
+}
+
+template <typename T>
+const Matrix3D<T> operator*(T factor, const Matrix3D<T>& matrix) {
+    return (matrix * factor);
+}
+
+template <typename T>
+const Matrix3D<T> Matrix3D<T>::operator/(T divisor) const {
+    return Matrix3D<T>(this->M11 / divisor, this->M12 / divisor, this->M13 / divisor,
+                       this->M21 / divisor, this->M22 / divisor, this->M23 / divisor,
+                       this->M31 / divisor, this->M32 / divisor, this->M33 / divisor);
 }
 
 template <typename T>
