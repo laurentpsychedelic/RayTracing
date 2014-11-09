@@ -23,6 +23,8 @@ ifneq ($(UNICODE),)
 endif
 -include check_init_parameters
 
+run: raytrace
+	./raytrace
 rebuild: clean build
 clean:
 	rm -vf *.o Main
