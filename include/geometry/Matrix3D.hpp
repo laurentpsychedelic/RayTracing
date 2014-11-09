@@ -35,9 +35,11 @@ public:
     const Matrix3D<T> operator*=(const Matrix3D<T>& matrix) const;
     const Matrix3D<T> operator/(T divisor) const;
     const Matrix3D<T> operator^(const int divisor) const;
+    const T operator~() const; // Determinant operator
     const bool operator==(const Matrix3D<T>& matrix) const;
     /* Member functions */
     const Matrix3D<T> inverse() const;
+    const T determinant() const;
     /* Friend functions */
     template <typename U>
     friend std::ostream& operator<<(std::ostream& out, const Matrix3D<U>& instance);
@@ -120,6 +122,19 @@ const Matrix3D<T> Matrix3D<T>::operator^(const int exponent) const {
 }
 
 template <typename T>
+const T Matrix3D<T>::operator~() const { // Determinant operator
+    return this->determinant();
+}
+
+template <typename T>
+const T Matrix3D<T>::determinant() const {
+    const Vector3D<T> col1(this->M11, this->M21, this->M31);
+    const Vector3D<T> col2(this->M12, this->M22, this->M32);
+    const Vector3D<T> col3(this->M13, this->M23, this->M33);
+    return col1 | ( col2 * col3 ); // Determinant = triple product
+}
+
+template <typename T>
 const Matrix3D<T> Matrix3D<T>::inverse() const {
     const Vector3D<T> col1(this->M11, this->M21, this->M31);
     const Vector3D<T> col2(this->M12, this->M22, this->M32);
@@ -127,7 +142,7 @@ const Matrix3D<T> Matrix3D<T>::inverse() const {
     const Vector3D<T> row1 = col2 * col3;
     const Vector3D<T> row2 = col3 * col1;
     const Vector3D<T> row3 = col1 * col2;
-    const T det = col1 | ( col2 * col3 ); // Determinant = triple product
+    const T det = this->determinant();
     return Matrix3D<T>(row1.x, row1.y, row1.z,
                        row2.x, row2.y, row2.z,
                        row3.x, row3.y, row3.z) / det;
