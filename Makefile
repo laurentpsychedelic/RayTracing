@@ -8,7 +8,7 @@ CC = gcc
 CPP = g++
 OPTIONS = -s
 INCLUDES = -I include 
-CFLAGS = -Wall -pedantic ${MAKE_OPTIONS} ${OPTIONS}
+CFLAGS = -Wall -pedantic -std=c++11 ${MAKE_OPTIONS} ${OPTIONS}
 LIBS = 
 LFLAGS = ${LIBS} ${OPTIONS}
 

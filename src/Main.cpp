@@ -2,6 +2,9 @@
 
 #include "geometry/Basis3D.hpp"
 #include "geometry/Matrix3D.hpp"
+#include "geometry/GridSurface3D.hpp"
+#include "geometry/Surface3D.hpp"
+#include "geometry/Range3D.hpp"
 #include "geometry/TransformationMatrix3D.hpp"
 #include "geometry/Vector3D.hpp"
 #include "optics/Refractor.hpp"
@@ -9,10 +12,14 @@
 using namespace std;
 
 #define Basis Basis3D<double>
+#define GridSurface GridSurface3D<double>
 #define Matrix Matrix3D<double>
 #define Refractor Refractor<double>
 #define TransformationMatrix TransformationMatrix3D<double>
 #define Vector Vector3D<double>
+#define Point Point3D<double>
+#define Range3D Range3D<double>
+#define Range Range<double>
 
 int main(int argc, char *argv[]) {
     try {
@@ -66,9 +73,24 @@ int main(int argc, char *argv[]) {
         const Vector refracted = Refractor::refract(incident, normal, n1, n2);
         cout << "inc = " << incident << endl;
         cout << "ref = " << refracted << endl;
+
+        const Range3D r(Range(0, 1), Range(3, 4), Range(5, 6));
+        cout << "Range = " << r << endl;
+
+        const double dataZ[4] = { 1.234, 2.345, 3.456, 4.567 };
+        GridSurface surface(r.rangeX, 1.0, r.rangeY, 1.0, dataZ);
+        cout << "surface = " << surface << endl;
+        cout << "surface->range = " << surface.getRange() << endl;
+        cout << "surface X " << Point(-10, 0, 0) << " = " << surface.intersects(Point(-10, 0, 0)) << endl;
+        cout << "surface X " << Point(0, 0, 0) << " = " << surface.intersects(Point(0, 0, 0)) << endl;
+        cout << "surface X " << Point(0.5, 3.5, 3.0) << " = " << surface.intersects(Point(0.5, 3.5, 3.0)) << endl;
+
     } catch (const char* error) {
         cout << "ERROR! >> " << error << endl;
         return -1;
     }
     return 0;
 }
+
+
+
