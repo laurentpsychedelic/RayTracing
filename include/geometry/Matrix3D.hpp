@@ -28,6 +28,8 @@ public:
     Matrix3D(const Matrix3D<T>& matrix) : M11(matrix.M11), M12(matrix.M12), M13(matrix.M13), M21(matrix.M21), M22(matrix.M22), M23(matrix.M23), M31(matrix.M31), M32(matrix.M32), M33(matrix.M33) {
         check(M11, M12, M13, M21, M22, M23, M31, M32, M33);
     }
+    /* Virtual destructor */
+    virtual ~Matrix3D() {}
     /* Operators */
     const Matrix3D<T> operator+(const Matrix3D<T>& matrix) const;
     const Matrix3D<T> operator*(T factor) const;
