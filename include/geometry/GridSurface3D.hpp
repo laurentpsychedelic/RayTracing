@@ -12,6 +12,7 @@ class GridSurface3D : ISurface3D<T> {
 public:
     virtual Range3D<T> getRange();
     virtual bool intersects(const Point3D<T>& point);    
+    virtual LocalVector3D<T> getLocalVector(const Point3D<T>& point);
     /* Members */
 private:
     T* dataZ; // []
@@ -82,6 +83,30 @@ bool GridSurface3D<T>::intersects(const Point3D<T>& point) {
     const T z22 = this->dataZ[x2 + y2 * Nx];
     return ( ( z >= z11 || z >= z12 || z >= z21 || z >= z22 )
              && ( z <= z11 || z <= z12 || z <= z21 || z <= z22 ));
+}
+
+template <typename T>
+LocalVector3D<T> GridSurface3D<T>::getLocalVector(const Point3D<T>& point) {
+    if (! ( (*range) & point ) )
+        throw "Outside range!";
+    const Range<T> rangeX = range->rangeX;
+    const Range<T> rangeY = range->rangeY;
+    const T x = point.x;
+    const T y = point.y;
+    // const T z = point.z;
+    const int x1 = (int) ( (x - rangeX.start) / this->stepX );
+    const int x2 = x1 + 1;
+    const int y1 = (int) ( (y - rangeY.start) / this->stepY );
+    const int y2 = y1 + 1;
+    const T z11 = this->dataZ[x1 + y1 * Nx];
+    const T z12 = this->dataZ[x1 + y2 * Nx];
+    const T z21 = this->dataZ[x2 + y1 * Nx];
+    const T z22 = this->dataZ[x2 + y2 * Nx];
+    const Vector3D<T> t12(x2 - x1, y1, z21 - z11);
+    const Vector3D<T> t22(x2 - x1, y2, z22 - z12);
+    const Vector3D<T> t11(x1, y2 - y1, z12 - z11);
+    const Vector3D<T> t21(x2, y2 - y1, z22 - z21);
+    return LocalVector3D<T>(point, !( (t12 * t11) + (t22 * t21) ));
 }
 
 template <typename T>

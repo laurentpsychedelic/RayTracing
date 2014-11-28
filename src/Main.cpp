@@ -3,6 +3,7 @@
 #include "geometry/Basis3D.hpp"
 #include "geometry/Matrix3D.hpp"
 #include "geometry/GridSurface3D.hpp"
+#include "geometry/LocalVector3D.hpp"
 #include "geometry/Surface3D.hpp"
 #include "geometry/Range3D.hpp"
 #include "geometry/TransformationMatrix3D.hpp"
@@ -17,6 +18,7 @@ using namespace std;
 #define Refractor Refractor<double>
 #define TransformationMatrix TransformationMatrix3D<double>
 #define Vector Vector3D<double>
+#define LocalVector LocalVector3D<double>
 #define Point Point3D<double>
 #define Range3D Range3D<double>
 #define Range Range<double>
@@ -84,6 +86,9 @@ int main(int argc, char *argv[]) {
         cout << "surface X " << Point(-10, 0, 0) << " = " << surface.intersects(Point(-10, 0, 0)) << endl;
         cout << "surface X " << Point(0, 0, 0) << " = " << surface.intersects(Point(0, 0, 0)) << endl;
         cout << "surface X " << Point(0.5, 3.5, 3.0) << " = " << surface.intersects(Point(0.5, 3.5, 3.0)) << endl;
+        Point location(0.5, 3.5, 3.0);
+        LocalVector localVector = surface.getLocalVector(location);
+        cout << "Local vector at " << location << " = " << localVector << endl;
 
     } catch (const char* error) {
         cout << "ERROR! >> " << error << endl;
