@@ -22,6 +22,7 @@ using namespace std;
 #define Point Point3D<double>
 #define Range3D Range3D<double>
 #define Range Range<double>
+#define Ray Ray<double, double>
 
 int main(int argc, char *argv[]) {
     try {
@@ -89,6 +90,12 @@ int main(int argc, char *argv[]) {
         Point location(0.5, 3.5, 3.0);
         LocalVector localVector = surface.getLocalVector(location);
         cout << "Local vector at " << location << " = " << localVector << endl;
+
+        Ray ray(v1, v2, 1.0);
+        cout << "Ray: " << ray << endl;
+
+        ImageDiffuser diffuser(PI / 4);
+        cout << "Image diffuser: " << diffuser << endl;
 
     } catch (const char* error) {
         cout << "ERROR! >> " << error << endl;
