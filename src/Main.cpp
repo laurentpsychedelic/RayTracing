@@ -9,11 +9,14 @@
 #include "geometry/TransformationMatrix3D.hpp"
 #include "geometry/Vector3D.hpp"
 #include "optics/Refractor.hpp"
+#include "optics/IDiffuser.hpp"
+#include "optics/ObjectDiffuser.hpp"
 
 using namespace std;
 
 #define Basis Basis3D<double>
 #define GridSurface GridSurface3D<double>
+#define ObjectDiffuser ObjectDiffuser<double, double>
 #define Matrix Matrix3D<double>
 #define Refractor Refractor<double>
 #define TransformationMatrix TransformationMatrix3D<double>
@@ -94,8 +97,9 @@ int main(int argc, char *argv[]) {
         Ray ray(v1, v2, 1.0);
         cout << "Ray: " << ray << endl;
 
-        ImageDiffuser diffuser(PI / 4);
+        ObjectDiffuser diffuser(PI / 4);
         cout << "Image diffuser: " << diffuser << endl;
+        vector<Ray> rays = diffuser.diffuse(Vector(0, 0, 1), ray);
 
     } catch (const char* error) {
         cout << "ERROR! >> " << error << endl;
