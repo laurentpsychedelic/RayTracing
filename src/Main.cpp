@@ -14,18 +14,21 @@
 
 using namespace std;
 
-#define Basis Basis3D<double>
-#define GridSurface GridSurface3D<double>
-#define ObjectDiffuser ObjectDiffuser<double, double>
-#define Matrix Matrix3D<double>
-#define Refractor Refractor<double>
-#define TransformationMatrix TransformationMatrix3D<double>
-#define Vector Vector3D<double>
-#define LocalVector LocalVector3D<double>
-#define Point Point3D<double>
-#define Range3D Range3D<double>
-#define Range Range<double>
-#define Ray Ray<double, double>
+#define COORD_TYPE double
+#define INTENS_TYPE double
+
+#define Basis Basis3D<COORD_TYPE>
+#define GridSurface GridSurface3D<COORD_TYPE>
+#define ObjectDiffuser ObjectDiffuser<COORD_TYPE, INTENS_TYPE>
+#define Matrix Matrix3D<COORD_TYPE>
+#define Refractor Refractor<COORD_TYPE>
+#define TransformationMatrix TransformationMatrix3D<COORD_TYPE>
+#define Vector Vector3D<COORD_TYPE>
+#define LocalVector LocalVector3D<COORD_TYPE>
+#define Point Point3D<COORD_TYPE>
+#define Range3D Range3D<COORD_TYPE>
+#define Range Range<COORD_TYPE>
+#define Ray Ray<COORD_TYPE, INTENS_TYPE>
 
 int main(int argc, char *argv[]) {
     try {
