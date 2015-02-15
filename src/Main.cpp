@@ -104,6 +104,9 @@ int main(int argc, char *argv[]) {
         cout << "Image diffuser: " << diffuser << endl;
         vector<Ray> rays = diffuser.diffuse(Vector(0, 0, 1), ray);
 
+        cout << "Diffused rays: " << endl;
+        for (vector<Ray>::iterator it = rays.begin() ; it != rays.end(); ++it)
+            cout << *it << endl;
     } catch (const char* error) {
         cout << "ERROR! >> " << error << endl;
         return -1;
