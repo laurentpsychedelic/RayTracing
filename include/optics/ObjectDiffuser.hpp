@@ -30,7 +30,7 @@ private:
 
 template <typename T, typename U>
 void ObjectDiffuser<T,U>::check(const double diffusionAngle) {
-    if (diffusionAngle < 0 || diffusionAngle > ( 2 * PI ) || diffusionAngle != diffusionAngle)
+    if (diffusionAngle < 0 || diffusionAngle > PI || diffusionAngle != diffusionAngle)
         throw "Bad diffusion angle!";
 }
 
