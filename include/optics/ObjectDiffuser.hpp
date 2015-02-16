@@ -35,7 +35,8 @@ void ObjectDiffuser<T,U>::check(const double diffusionAngle) {
 }
 
 template <typename T, typename U>
-const std::vector<Ray<T, U> > ObjectDiffuser<T, U>::diffuse(const Vector3D<T>& normal, const Ray<T, U>& incomingRay) const {
+const std::vector<Ray<T, U> > ObjectDiffuser<T, U>::diffuse(const Vector3D<T>& _normal, const Ray<T, U>& incomingRay) const {
+    const Vector3D<T> normal = !_normal;
     double stepDiffusionAngle = PI / 50.0f;
     double stepAzimuth = PI / 50.0f;
     std::vector<Ray<T, U> > rays;
@@ -43,17 +44,21 @@ const std::vector<Ray<T, U> > ObjectDiffuser<T, U>::diffuse(const Vector3D<T>& n
     rays.push_back(Ray<T, U>(incomingRay.location, normal, nominalIntensity));
 
 
-    const double normal_azimuth = atan2(normal.y, normal.x);
-    const double normal_angle = atan2(normal.z, sqrt(normal.x * normal.x + normal.y * normal.y));
-
+    const double normal_angle = atan2(sqrt(normal.x * normal.x + normal.y * normal.y), normal.z);
+    std::cout << normal_angle << "..." << std::endl;
+    const double _cos = cos(normal_angle);
+    const double _sin = sin(normal_angle);
+    const double ux = -normal.y;
+    const double uy =  normal.z;
+    const Matrix3D<T> R( _cos + ux * ux * ( 1 - _cos), ux * uy * (1 - _cos)       ,  uy * _sin,
+                   uy * ux * (1 - _cos)        , _cos + uy * uy * (1 - _cos), -ux * _sin,
+                  -uy * _sin                   , ux * _sin                  , _cos      );
     for (double _diffusionAngle = stepDiffusionAngle; _diffusionAngle < diffusionAngle; _diffusionAngle += stepDiffusionAngle) {
         for (double _azimuth = 0; _azimuth < 2 * PI; _azimuth += stepAzimuth) {
             const double x = cos(_azimuth) * sin(_diffusionAngle);
             const double y = sin(_azimuth) * sin(_diffusionAngle);
             const double z = cos(_diffusionAngle);
             // rotate raw ray according to the normal direction
-            Matrix3D<T> R(0, 0, 0, 0, 0, 0, 0, 0, 0); // rotation of angle (normal_angle) around equatorial axis at azimuth (normal_azimuth) [[ (x, y) = ( cos(normal_azimuth), sin(normal_azimuth) ) ]]
-            throw "Diffused ray rotation according to normal vector not implemented!";
             rays.push_back(Ray<T, U>(incomingRay.location, R * Vector3D<T>(x, y, z), nominalIntensity));
         }
     }
