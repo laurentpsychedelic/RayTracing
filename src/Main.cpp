@@ -100,7 +100,7 @@ int main(int argc, char *argv[]) {
         Ray ray(v1, v2, 1.0);
         cout << "Ray: " << ray << endl;
 
-        ObjectDiffuser diffuser(PI / 10);
+        ObjectDiffuser diffuser(M_PI / 10);
         cout << "Image diffuser: " << diffuser << endl;
         vector<Ray> rays = diffuser.diffuse(Vector(0, 0, 1), ray);
 
