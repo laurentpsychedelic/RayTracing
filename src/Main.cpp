@@ -11,6 +11,7 @@
 #include "optics/Refractor.hpp"
 #include "optics/IDiffuser.hpp"
 #include "optics/ObjectDiffuser.hpp"
+#include "optics/Object3D.hpp"
 
 using namespace std;
 
