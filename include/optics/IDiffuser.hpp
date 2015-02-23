@@ -9,9 +9,9 @@ template <typename T, typename U>
 class IDiffuser {
 public:
     /* Member functions */
-    const std::vector<Ray<T, U> > diffuse(const Vector3D<T>& normal, const Ray<T, U>& incomingRay) = 0; 
+    virtual const std::vector<Ray<T, U> > diffuse(const Vector3D<T>& normal, const Ray<T, U>& incomingRay) = 0;
     /* Vistual destructor */
-    virtual ~IDiffuser();
+    virtual ~IDiffuser() {}
 };
 
 #endif

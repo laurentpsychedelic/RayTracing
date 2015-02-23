@@ -10,15 +10,16 @@
 #include <iomanip>
 #include "geometry/PrintFormat.hpp"
 #include "geometry/Vector3D.hpp"
+#include "optics/IDiffuser.hpp"
 #include "optics/Ray.hpp"
 
 template <typename T, typename U>
-class ObjectDiffuser {
+class ObjectDiffuser : public IDiffuser<T, U> {
 public:
     /* members */
     const double diffusionAngle;
     /* Member functions */
-    const std::vector<Ray<T, U> > diffuse(const Vector3D<T>& normal, const Ray<T, U>& incomingRay) const; 
+    virtual const std::vector<Ray<T, U> > diffuse(const Vector3D<T>& normal, const Ray<T, U>& incomingRay) override;
     /* Constructors */
     ObjectDiffuser(const double diffusionAngle): diffusionAngle(diffusionAngle) {
         check(diffusionAngle);
@@ -37,7 +38,7 @@ void ObjectDiffuser<T,U>::check(const double diffusionAngle) {
 }
 
 template <typename T, typename U>
-const std::vector<Ray<T, U> > ObjectDiffuser<T, U>::diffuse(const Vector3D<T>& _normal, const Ray<T, U>& incomingRay) const {
+const std::vector<Ray<T, U> > ObjectDiffuser<T, U>::diffuse(const Vector3D<T>& _normal, const Ray<T, U>& incomingRay) {
     const Vector3D<T> normal = !_normal;
     double stepDiffusionAngle = M_PI / 50.0f;
     double stepAzimuth = M_PI / 50.0f;
