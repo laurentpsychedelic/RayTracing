@@ -6,6 +6,7 @@
 #include "geometry/LocalVector3D.hpp"
 #include "geometry/ISurface3D.hpp"
 #include "geometry/Range3D.hpp"
+#include "geometry/SphericalSurface3D.hpp"
 #include "geometry/TransformationMatrix3D.hpp"
 #include "geometry/Vector3D.hpp"
 #include "optics/Refractor.hpp"
@@ -20,6 +21,7 @@ using namespace std;
 
 #define Basis Basis3D<COORD_TYPE>
 #define GridSurface GridSurface3D<COORD_TYPE>
+#define Sphericalsurface Sphericalsurface3D<COORD_TYPE>
 #define ObjectDiffuser ObjectDiffuser<COORD_TYPE, INTENS_TYPE>
 #define Matrix Matrix3D<COORD_TYPE>
 #define Refractor Refractor<COORD_TYPE>
@@ -97,6 +99,10 @@ int main(int argc, char *argv[]) {
         Point location(0.5, 3.5, 3.0);
         LocalVector localVector = surface.getLocalVector(location);
         cout << "Local vector at " << location << " = " << localVector << endl;
+
+        Point center(0.0, 0.0, 0.0);
+        Sphericalsurface ss(center, 6.0 /* curvature */, 1.0 /* radius */);
+        cout << "Spherical surface: " << ss << endl;
 
         Ray ray(v1, v2, 1.0);
         cout << "Ray: " << ray << endl;
