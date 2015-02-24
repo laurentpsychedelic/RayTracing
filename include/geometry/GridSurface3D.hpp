@@ -3,7 +3,7 @@
 
 #include <limits>
 #include "geometry/Point3D.hpp"
-#include "geometry/Surface3D.hpp"
+#include "geometry/ISurface3D.hpp"
 
 using namespace std;
 

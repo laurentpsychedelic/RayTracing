@@ -4,7 +4,7 @@
 #include "geometry/Matrix3D.hpp"
 #include "geometry/GridSurface3D.hpp"
 #include "geometry/LocalVector3D.hpp"
-#include "geometry/Surface3D.hpp"
+#include "geometry/ISurface3D.hpp"
 #include "geometry/Range3D.hpp"
 #include "geometry/TransformationMatrix3D.hpp"
 #include "geometry/Vector3D.hpp"
