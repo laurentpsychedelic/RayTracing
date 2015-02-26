@@ -103,7 +103,7 @@ int main(int argc, char *argv[]) {
         cout << "surface X " << Point(0, 0, 0) << " = " << surface.intersects(Point(0, 0, 0)) << endl;
         cout << "surface X " << Point(0.5, 3.5, 3.0) << " = " << surface.intersects(Point(0.5, 3.5, 3.0)) << endl;
         Point location(0.5, 3.5, 3.0);
-        LocalVector localVector = surface.getLocalVector(location);
+        LocalVector localVector = surface.getNormalVector(location);
         cout << "Local vector at " << location << " = " << localVector << endl;
 
         Point center(0.0, 0.0, 0.0);

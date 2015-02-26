@@ -8,9 +8,7 @@
 template <typename T>
 class ISurface3D {
 public:
-    virtual Range3D<T> getRange() = 0;
-    virtual bool intersects(const Point3D<T>& point) = 0;
-    virtual LocalVector3D<T> getLocalVector(const Point3D<T>& point) = 0;
+    virtual LocalVector3D<T> getNormalVector(const Point3D<T>& point) = 0;
     /* Virtual destructor */
     virtual ~ISurface3D() {}
 };

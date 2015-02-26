@@ -10,9 +10,9 @@ using namespace std;
 template <typename T>
 class GridSurface3D : ISurface3D<T> {
 public:
-    virtual Range3D<T> getRange();
-    virtual bool intersects(const Point3D<T>& point);    
-    virtual LocalVector3D<T> getLocalVector(const Point3D<T>& point);
+    Range3D<T> getRange();
+    bool intersects(const Point3D<T>& point);
+    virtual LocalVector3D<T> getNormalVector(const Point3D<T>& point);
     /* Members */
 private:
     T* dataZ; // []
@@ -86,7 +86,7 @@ bool GridSurface3D<T>::intersects(const Point3D<T>& point) {
 }
 
 template <typename T>
-LocalVector3D<T> GridSurface3D<T>::getLocalVector(const Point3D<T>& point) {
+LocalVector3D<T> GridSurface3D<T>::getNormalVector(const Point3D<T>& point) {
     if (! ( (*range) & point ) )
         throw "Outside range!";
     const Range<T> rangeX = range->rangeX;

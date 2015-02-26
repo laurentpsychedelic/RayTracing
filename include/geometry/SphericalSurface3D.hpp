@@ -8,9 +8,8 @@ using namespace std;
 template <typename T>
 class SphericalSurface3D : public ISurface3D<T> {
 public:
-    virtual Range3D<T> getRange();
-    virtual bool intersects(const Point3D<T>& point);    
-    virtual LocalVector3D<T> getLocalVector(const Point3D<T>& point);
+    Range3D<T> getRange();
+    virtual LocalVector3D<T> getNormalVector(const Point3D<T>& point);
     /* Members */
 private:
     const Point3D<T> center;
@@ -39,16 +38,7 @@ Range3D<T> SphericalSurface3D<T>::getRange() {
 }
 
 template <typename T>
-bool SphericalSurface3D<T>::intersects(const Point3D<T>& point) {
-    const double _x = point.x - center.x;
-    const double _y = point.y - center.y;
-    const double _z = center.z + sqrt(radius - _x * _x - _y * _y);
-    throw "Not yet implemented!";
-    return false;
-}
-
-template <typename T>
-LocalVector3D<T> SphericalSurface3D<T>::getLocalVector(const Point3D<T>& point) {
+LocalVector3D<T> SphericalSurface3D<T>::getNormalVector(const Point3D<T>& point) {
     throw "Not yet implemented!";
 }
 
