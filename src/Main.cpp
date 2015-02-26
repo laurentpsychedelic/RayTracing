@@ -13,6 +13,7 @@
 #include "optics/IDiffuser.hpp"
 #include "optics/ObjectDiffuser.hpp"
 #include "optics/Object3D.hpp"
+#include "optics/PointSource3D.hpp"
 
 using namespace std;
 
@@ -23,6 +24,8 @@ using namespace std;
 #define GridSurface GridSurface3D<COORD_TYPE>
 #define Sphericalsurface Sphericalsurface3D<COORD_TYPE>
 #define ObjectDiffuser ObjectDiffuser<COORD_TYPE, INTENS_TYPE>
+#define Object Object3D<COORD_TYPE, INTENS_TYPE>
+#define PointSource PointSource3D<COORD_TYPE, INTENS_TYPE>
 #define Matrix Matrix3D<COORD_TYPE>
 #define Refractor Refractor<COORD_TYPE>
 #define TransformationMatrix TransformationMatrix3D<COORD_TYPE>
@@ -114,6 +117,9 @@ int main(int argc, char *argv[]) {
         cout << "Diffused rays: " << endl;
         for (vector<Ray>::iterator it = rays.begin() ; it != rays.end(); ++it)
             cout << *it << endl;
+
+        PointSource ps(Point(0.0, 0.0, 0.0) /* location */, 1.0 /* intensity */);
+        cout << "Source point: " << ps << endl;
     } catch (const char* error) {
         cout << "ERROR! >> " << error << endl;
         return -1;

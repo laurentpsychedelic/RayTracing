@@ -1,8 +1,10 @@
 #ifndef OBJECT_HPP
 #define OBJECT_HPP
 
-template <typename T>
-class Object3D : public vector<Point3D<T> > {
+#include "optics/PointSource3D.hpp"
+
+template <typename T, typename U>
+class Object3D : public vector<PointSource3D<T, U> > {
 };
 
 #endif
