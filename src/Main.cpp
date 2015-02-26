@@ -14,6 +14,7 @@
 #include "optics/ObjectDiffuser.hpp"
 #include "optics/Object3D.hpp"
 #include "optics/PointSource3D.hpp"
+#include "optics/SphericalSurfacePropagator.hpp"
 
 using namespace std;
 
@@ -21,8 +22,9 @@ using namespace std;
 #define INTENS_TYPE double
 
 #define Basis Basis3D<COORD_TYPE>
+#define ISurface ISurface3D<COORD_TYPE>
 #define GridSurface GridSurface3D<COORD_TYPE>
-#define Sphericalsurface Sphericalsurface3D<COORD_TYPE>
+#define SphericalSurface SphericalSurface3D<COORD_TYPE>
 #define ObjectDiffuser ObjectDiffuser<COORD_TYPE, INTENS_TYPE>
 #define Object Object3D<COORD_TYPE, INTENS_TYPE>
 #define PointSource PointSource3D<COORD_TYPE, INTENS_TYPE>
@@ -35,6 +37,7 @@ using namespace std;
 #define Range3D Range3D<COORD_TYPE>
 #define Range Range<COORD_TYPE>
 #define Ray Ray<COORD_TYPE, INTENS_TYPE>
+#define SphericalSurfacePropagator SphericalSurfacePropagator<COORD_TYPE, INTENS_TYPE>
 
 int main(int argc, char *argv[]) {
     try {
@@ -104,7 +107,7 @@ int main(int argc, char *argv[]) {
         cout << "Local vector at " << location << " = " << localVector << endl;
 
         Point center(0.0, 0.0, 0.0);
-        Sphericalsurface ss(center, 6.0 /* curvature */, 1.0 /* radius */);
+        SphericalSurface ss(center, 6.0 /* curvature */, 1.0 /* radius */);
         cout << "Spherical surface: " << ss << endl;
 
         Ray ray(v1, v2, 1.0);
@@ -119,13 +122,15 @@ int main(int argc, char *argv[]) {
             cout << *it << endl;
 
         PointSource ps(Point(0.0, 0.0, 0.0) /* location */, 1.0 /* intensity */);
-        cout << "Source point: " << ps << endl;
+        Ray rin(ps.location, Vector(0.0, 0.0, 1.0), 1.0);
+        ISurface* surf = &( dynamic_cast<ISurface&>(ss) );
+        SphericalSurfacePropagator ssp;
+        Ray rout = ssp.propagate(rin, surf);
+        cout << "Source ray: " << rin << endl;
+        cout << "Propagation to: " << rout << endl;
     } catch (const char* error) {
         cout << "ERROR! >> " << error << endl;
         return -1;
     }
     return 0;
 }
-
-
-

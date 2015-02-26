@@ -5,11 +5,10 @@
 
 template <typename T, typename U>
 class PointSource3D {
-private:
+public:
     /* Members */
     const Point3D<T> location;
     const U intensity;
-public:
     /* Constructors */
     PointSource3D(const Point3D<T>& location, const U intensity) : location(location), intensity(intensity) {}
     PointSource3D(const PointSource3D<T, U>& point) : location(point.location), intensity(point.intensity) {}
