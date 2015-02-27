@@ -33,15 +33,15 @@ private:
 
 template <typename T>
 const Range3D<T> SphericalSurface3D<T>::getRange() const {
-    const T thickness = (T) asin(abs((double) radius) / (double) curvature);
+    const T thickness = (T) asin((double) radius / abs((double) curvature));
     if (curvature > 0) {
         return Range3D<T>(Range<T>(center.x - radius, center.x + radius) /* range x */,
                           Range<T>(center.y - radius, center.y + radius) /* range y */,
-                          Range<T>(center.z + radius - thickness, center.z + radius) /* range z */);
+                          Range<T>(center.z + curvature - thickness, center.z + curvature) /* range z */);
     } else { // curvature < 0
         return Range3D<T>(Range<T>(center.x - radius, center.x + radius) /* range x */,
                           Range<T>(center.y - radius, center.y + radius) /* range y */,
-                          Range<T>(center.z - radius, center.z - radius + thickness) /* range z */);
+                          Range<T>(center.z + curvature, center.z + curvature + thickness) /* range z */);
     }
 }
 
@@ -67,8 +67,8 @@ void SphericalSurface3D<T>::check(const Point3D<T>& center, const T curvature, c
         throw "The radius of a spherical surface must be strictly greater than 0!";
     if (curvature == 0.0)
         throw "The curvature of a spherical surface must be strictly positive or negative, i.e. not equal to 0!";
-    if (radius > curvature)
-        throw "The radius of a spherical surface must be less than or equal to its curvature!";
+    if (abs(radius) > abs(curvature))
+        throw "The radius of a spherical surface must be less than or equal to its curvature (in absolute value)!";
 }
 
 #endif
