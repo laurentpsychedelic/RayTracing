@@ -6,6 +6,7 @@
 #include "geometry/LocalVector3D.hpp"
 #include "geometry/ISurface3D.hpp"
 #include "geometry/Range3D.hpp"
+#include "geometry/OrthogonalPlaneSurface3D.hpp"
 #include "geometry/SphericalSurface3D.hpp"
 #include "geometry/TransformationMatrix3D.hpp"
 #include "geometry/Vector3D.hpp"
@@ -24,6 +25,7 @@ using namespace std;
 #define Basis Basis3D<COORD_TYPE>
 #define ISurface ISurface3D<COORD_TYPE>
 #define GridSurface GridSurface3D<COORD_TYPE>
+#define PlanarSurface OrthogonalPlaneSurface3D<COORD_TYPE>
 #define SphericalSurface SphericalSurface3D<COORD_TYPE>
 #define ObjectDiffuser ObjectDiffuser<COORD_TYPE, INTENS_TYPE>
 #define Object Object3D<COORD_TYPE, INTENS_TYPE>
@@ -107,8 +109,11 @@ int main(int argc, char *argv[]) {
         cout << "Local vector at " << location << " = " << localVector << endl;
 
         Point center(0.0, 0.0, 0.0);
-        SphericalSurface ss(center, 6.0 /* curvature */, 1.0 /* radius */);
-        cout << "Spherical surface: " << ss << endl;
+        SphericalSurface ssurf(center, -6.0 /* curvature */, 1.0 /* radius */);
+        cout << "Spherical surface: " << ssurf << endl;
+
+        PlanarSurface psurf(ssurf.getRange().rangeZ.end);
+        cout << "Planar surface: " << psurf << endl;
 
         Ray ray(v1, v2, 1.0);
         cout << "Ray: " << ray << endl;
@@ -123,9 +128,9 @@ int main(int argc, char *argv[]) {
 
         PointSource ps(Point(0.0, 0.0, 0.0) /* location */, 1.0 /* intensity */);
         Ray rin(ps.location, Vector(0.0, 0.0, 1.0), 1.0);
-        ISurface* surf = &( dynamic_cast<ISurface&>(ss) );
+        ISurface* issurf = &( dynamic_cast<ISurface&>(ssurf) );
         SphericalSurfacePropagator ssp;
-        Ray rout = ssp.propagate(rin, surf);
+        Ray rout = ssp.propagate(rin, issurf);
         cout << "Source ray: " << rin << endl;
         cout << "Propagation to: " << rout << endl;
     } catch (const char* error) {
