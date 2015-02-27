@@ -15,6 +15,7 @@
 #include "optics/ObjectDiffuser.hpp"
 #include "optics/Object3D.hpp"
 #include "optics/PointSource3D.hpp"
+#include "optics/OrthogonalPlaneSurfacePropagator.hpp"
 #include "optics/SphericalSurfacePropagator.hpp"
 
 using namespace std;
@@ -39,6 +40,7 @@ using namespace std;
 #define Range3D Range3D<COORD_TYPE>
 #define Range Range<COORD_TYPE>
 #define Ray Ray<COORD_TYPE, INTENS_TYPE>
+#define PlanarSurfacePropagator OrthogonalPlaneSurfacePropagator<COORD_TYPE, INTENS_TYPE>
 #define SphericalSurfacePropagator SphericalSurfacePropagator<COORD_TYPE, INTENS_TYPE>
 
 int main(int argc, char *argv[]) {
@@ -126,13 +128,17 @@ int main(int argc, char *argv[]) {
         for (vector<Ray>::iterator it = rays.begin() ; it != rays.end(); ++it)
             cout << *it << endl;
 
-        PointSource ps(Point(0.0, 0.0, 0.0) /* location */, 1.0 /* intensity */);
-        Ray rin(ps.location, Vector(0.0, 0.0, 1.0), 1.0);
+        PointSource ps(Point(0.0, 0.0, -100.0) /* location */, 1.0 /* intensity */);
+        Ray rin(ps.location, !(Vector(0.01, 0.02, 1.0)), 1.0);
         ISurface* issurf = &( dynamic_cast<ISurface&>(ssurf) );
         SphericalSurfacePropagator ssp;
-        Ray rout = ssp.propagate(rin, issurf);
+        Ray rout = rin;//ssp.propagate(rin, issurf);
         cout << "Source ray: " << rin << endl;
         cout << "Propagation to: " << rout << endl;
+        issurf = &( dynamic_cast<ISurface&>(psurf) );
+        PlanarSurfacePropagator psp;
+        Ray rout2 = psp.propagate(rout, issurf);
+        cout << "Propagation to: " << rout2 << endl;
     } catch (const char* error) {
         cout << "ERROR! >> " << error << endl;
         return -1;
