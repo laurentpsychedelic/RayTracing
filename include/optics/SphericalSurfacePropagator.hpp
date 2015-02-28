@@ -35,7 +35,18 @@ const Ray<T, U> SphericalSurfacePropagator<T, U>::propagate(const Ray<T, U>& ray
     if (_r >= surface->radius && Utils::IsGettingFarFromOpticalAxis(prop, direction)) // The ray is lost!
         return Ray<T, U>(start, direction, 0.0); // 0 intensity
     // Compute the intersection of the ray with the spherical surface
-    throw "Not yet implemented!";
+    const Vector3D<T> v = start - surface->center;
+    const double vd = (double) (v | ray.direction);
+    const double r = surface->curvature;
+    const double _t = sqrt( (vd * vd) - ( (v | v) - (r * r) ) );
+    const Point3D<T> p1 = start + (T) ( -vd - _t ) * direction;
+    const Point3D<T> p2 = start + (T) ( -vd + _t ) * direction;
+    const Point3D<T> p = p1.z < p2.z ? p1 : p2;
+    _r = (T) sqrt(p.x * p.x + p.y * p.y);
+    if (_r >= surface->radius) // The ray is lost!
+        return Ray<T, U>(p, direction, 0.0); // 0 intensity
+    else
+        return Ray<T, U>(p, direction, ray.intensity);
 }
 
 #endif

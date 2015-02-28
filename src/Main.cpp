@@ -128,7 +128,7 @@ int main(int argc, char *argv[]) {
             cout << *it << endl;
 
         PointSource ps(Point(0.0, 0.0, -100.0) /* location */, 1.0 /* intensity */);
-        Ray rin(ps.location, !(Vector(0.01, 0.02, 1.0)), 1.0);
+        Ray rin(ps.location, !(Vector(0.004, 0.002, 1.0)), 1.0);
         ISurface* surf = dynamic_cast<ISurface*>(&ssurf);
         Propagator* propagator = PropagatorFactory::GetPropagator(surf);
         if (!propagator)
