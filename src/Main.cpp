@@ -129,13 +129,19 @@ int main(int argc, char *argv[]) {
 
         PointSource ps(Point(0.0, 0.0, -100.0) /* location */, 1.0 /* intensity */);
         Ray rin(ps.location, !(Vector(0.01, 0.02, 1.0)), 1.0);
-        Propagator* propagator = PropagatorFactory::GetPropagator(&ssurf);
-        Ray rout = propagator->propagate(rin, dynamic_cast<ISurface*>(&ssurf));
+        ISurface* surf = dynamic_cast<ISurface*>(&ssurf);
+        Propagator* propagator = PropagatorFactory::GetPropagator(surf);
+        if (!propagator)
+            throw "Null propagator!";
+        Ray rout = propagator->propagate(rin, surf);
         delete propagator;
         cout << "Source ray: " << rin << endl;
         cout << "Propagation to: " << rout << endl;
-        propagator = PropagatorFactory::GetPropagator(&psurf);
-        Ray rout2 = propagator->propagate(rout, dynamic_cast<ISurface*>(&psurf));
+        surf = dynamic_cast<ISurface*>(&psurf);
+        propagator = PropagatorFactory::GetPropagator(surf);
+        if (!propagator)
+            throw "Null propagator!";
+        Ray rout2 = propagator->propagate(rout, surf);
         delete propagator;
         cout << "Propagation to: " << rout2 << endl;
     } catch (const char* error) {
