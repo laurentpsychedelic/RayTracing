@@ -137,7 +137,7 @@ int main(int argc, char *argv[]) {
         delete propagator;
         cout << "Source ray: " << rin << endl;
         cout << "Propagation to: " << rout << endl;
-        const Vector _refracted = Refractor::refract(rout.direction, psurf.getNormalVector(rout.location).normal, 1.0, 1.5);
+        const Vector _refracted = Refractor::refract(rout.direction, ssurf.getNormalVector(rout.location).normal, 1.0, 1.5);
         cout << "Refraction! " << rout.direction << " -> " << _refracted << endl;
         Ray rout2 = Ray(rout.location, _refracted, rout.intensity);
         surf = dynamic_cast<ISurface*>(&psurf);
@@ -147,6 +147,9 @@ int main(int argc, char *argv[]) {
         Ray rout3 = propagator->propagate(rout2, surf);
         delete propagator;
         cout << "Propagation to: " << rout3 << endl;
+        const Vector _refracted2 = Refractor::refract(rout3.direction, psurf.getNormalVector(rout3.location).normal, 1.5, 1.0);
+        cout << "Refraction! " << rout3.direction << " -> " << _refracted2 << endl;
+
     } catch (const char* error) {
         cout << "ERROR! >> " << error << endl;
         return -1;
