@@ -12,7 +12,7 @@ class GridSurface3D : ISurface3D<T> {
 public:
     Range3D<T> getRange();
     bool intersects(const Point3D<T>& point);
-    virtual LocalVector3D<T> getNormalVector(const Point3D<T>& point);
+    virtual LocalVector3D<T> getNormalVector(const Point3D<T>& point) const;
     /* Members */
 private:
     T* dataZ; // []
@@ -86,7 +86,7 @@ bool GridSurface3D<T>::intersects(const Point3D<T>& point) {
 }
 
 template <typename T>
-LocalVector3D<T> GridSurface3D<T>::getNormalVector(const Point3D<T>& point) {
+LocalVector3D<T> GridSurface3D<T>::getNormalVector(const Point3D<T>& point) const {
     if (! ( (*range) & point ) )
         throw "Outside range!";
     const Range<T> rangeX = range->rangeX;

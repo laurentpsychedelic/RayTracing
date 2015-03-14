@@ -8,7 +8,7 @@ template <typename T, typename U>
 class IPropagator {
 public:
     /* Member functions */
-    virtual const Ray<T, U> propagate(const Ray<T, U>& ray, ISurface3D<T>* surface) = 0;
+    virtual const Ray<T, U> propagate(const Ray<T, U>& ray, const ISurface3D<T>* surface) = 0;
     /* Virtual destructor */
     virtual ~IPropagator() {}
 };

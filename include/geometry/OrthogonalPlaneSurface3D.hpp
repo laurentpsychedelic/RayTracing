@@ -8,7 +8,7 @@
 template <typename T>
 class OrthogonalPlaneSurface3D : public ISurface3D<T> {
 public:
-    virtual LocalVector3D<T> getNormalVector(const Point3D<T>& point);
+    virtual LocalVector3D<T> getNormalVector(const Point3D<T>& point) const;
     /* Members */
 public:
     const T z;
@@ -25,7 +25,7 @@ private:
 };
 
 template <typename T>
-LocalVector3D<T> OrthogonalPlaneSurface3D<T>::getNormalVector(const Point3D<T>& point) {
+LocalVector3D<T> OrthogonalPlaneSurface3D<T>::getNormalVector(const Point3D<T>& point) const {
     return LocalVector3D<T>(Point3D<T>(point.x, point.y, z), Vector3D<T>(0.0, 0.0, -1.0));
 }
 

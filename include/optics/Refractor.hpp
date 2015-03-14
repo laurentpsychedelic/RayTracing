@@ -9,11 +9,11 @@
 template <typename T>
 class Refractor {
 public:
-    static Vector3D<T> refract(Vector3D<T> incident, Vector3D<T> normal, double n1, double n2);
+    static Vector3D<T> refract(const Vector3D<T>& incident, const Vector3D<T>& normal, double n1, double n2);
 };
 
 template <typename T>
-Vector3D<T> Refractor<T>::refract(Vector3D<T> _incident, Vector3D<T> _normal, double n1, double n2) {
+Vector3D<T> Refractor<T>::refract(const Vector3D<T>& _incident, const Vector3D<T>& _normal, double n1, double n2) {
     Vector3D<T> incident = !_incident;
     Vector3D<T> normal = !_normal;
     if ( (n1 != n1) || (!isfinite(n1))

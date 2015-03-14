@@ -13,7 +13,7 @@ template <typename T>
 class SphericalSurface3D : public ISurface3D<T> {
 public:
     const Range3D<T> getRange() const;
-    virtual LocalVector3D<T> getNormalVector(const Point3D<T>& point);
+    virtual LocalVector3D<T> getNormalVector(const Point3D<T>& point) const;
     /* Members */
 public:
     const Point3D<T> center;
@@ -46,7 +46,7 @@ const Range3D<T> SphericalSurface3D<T>::getRange() const {
 }
 
 template <typename T>
-LocalVector3D<T> SphericalSurface3D<T>::getNormalVector(const Point3D<T>& _point) {
+LocalVector3D<T> SphericalSurface3D<T>::getNormalVector(const Point3D<T>& _point) const {
     const double localX = (double) (_point.x - center.x);
     const double localY = (double) (_point.y - center.y);
     const double localZ = (curvature > 0 ? 1.0 : -1.0) * sqrt(curvature * curvature - localX * localX - localY * localY);
@@ -56,7 +56,7 @@ LocalVector3D<T> SphericalSurface3D<T>::getNormalVector(const Point3D<T>& _point
 
 template <typename T>
 std::ostream& operator<<(std::ostream& out, const SphericalSurface3D<T>& instance) {
-    return out << "[[ center: " << instance.center << ", curvature: " << instance.curvature << ", radius: " << instance.radius << " ]]";
+    return out << "{center: " << instance.center << ", curvature: " << instance.curvature << ", radius: " << instance.radius << "}";
 }
 
 template <typename T>

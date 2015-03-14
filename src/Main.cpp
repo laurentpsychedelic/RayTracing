@@ -12,10 +12,14 @@
 #include "geometry/Vector3D.hpp"
 #include "optics/Refractor.hpp"
 #include "optics/IDiffuser.hpp"
+#include "optics/Interface.hpp"
 #include "optics/ObjectDiffuser.hpp"
 #include "optics/Object3D.hpp"
+#include "optics/OpticalSystem.hpp"
 #include "optics/PointSource3D.hpp"
 #include "optics/PropagatorFactory.hpp"
+#include "optics/SingleRayTracer.hpp"
+#include "optics/Interface.hpp"
 
 using namespace std;
 
@@ -41,6 +45,9 @@ using namespace std;
 #define Ray Ray<COORD_TYPE, INTENS_TYPE>
 #define Propagator IPropagator<COORD_TYPE, INTENS_TYPE>
 #define PropagatorFactory PropagatorFactory<COORD_TYPE, INTENS_TYPE>
+#define SingleRayTracer SingleRayTracer<COORD_TYPE, INTENS_TYPE>
+#define OpticalSystem OpticalSystem<COORD_TYPE>
+#define Interface Interface<COORD_TYPE>
 
 int main(int argc, char *argv[]) {
     try {
@@ -149,6 +156,23 @@ int main(int argc, char *argv[]) {
         cout << "Propagation to: " << rout3 << endl;
         const Vector _refracted2 = Refractor::refract(rout3.direction, psurf.getNormalVector(rout3.location).normal, 1.5, 1.0);
         cout << "Refraction! " << rout3.direction << " -> " << _refracted2 << endl;
+
+        OpticalSystem os;
+        Interface int1(1.0, ssurf, 1.5);
+        cout << "Interface1: " << int1 << endl;
+        os.push_back(int1);
+        Interface int2(1.5, psurf, 1.0);
+        cout << "Interface2: " << int2 << endl;
+        os.push_back(int2);
+        PlanarSurface imageplane(0.0);
+        Interface int3(1.0, imageplane, 1.0);
+        cout << "Interface3[image]: " << int3 << endl;
+        os.push_back(int3);
+        cout << "Optical system summary:\n" << os << endl;
+        SingleRayTracer srt;
+        Ray imageray = srt.trace(rin, os);
+        cout << "Object ray: " << rin << endl;
+        cout << "Image ray: " << imageray << endl;
 
     } catch (const char* error) {
         cout << "ERROR! >> " << error << endl;
